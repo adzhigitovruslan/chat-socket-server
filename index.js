@@ -3,8 +3,7 @@ const { createServer } = require("node:http");
 const path = require("path");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const router = require("./routes/route");
-const { disconnect } = require("node:process");
+const router = require("./router/route");
 const {
     addUser,
     findUser,
@@ -36,7 +35,7 @@ io.on("connection", (socket) => {
                 message: `You are connected to room #${room}`,
             },
         });
-        socket.to(user.room).emit("message", {
+        socket.broadcast.to(user.room).emit("message", {
             data: {
                 user: { name: "Admin" },
                 message: `${name} has joined`,
@@ -65,11 +64,9 @@ io.on("connection", (socket) => {
             });
         }
     });
-    io.on(disconnect, (socket) => {
+    io.on("disconnect", (socket) => {
         console.log("disconnect");
     });
 });
 
-server.listen(3000, () => {
-    console.log("server running at http://localhost:3000");
-});
+server.listen(3000);

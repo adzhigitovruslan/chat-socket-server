@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
         "Access-Control-Allow-Headers",
         "X-Requested-With,content-type"
     );
-    res.send();
+    res.send("hey");
 });
 
 module.exports = router;
