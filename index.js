@@ -45,7 +45,6 @@ io.on("connection", (socket) => {
             data: { users: getRoomUsers(user.room) },
         });
     });
-
     socket.on("sendMessage", ({ message, searchQuery }) => {
         const user = findUser(searchQuery);
         if (user) {
@@ -64,7 +63,7 @@ io.on("connection", (socket) => {
             });
         }
     });
-    io.on("disconnect", (socket) => {
+    socket.on("disconnect", (socket) => {
         console.log("disconnect");
     });
 });
